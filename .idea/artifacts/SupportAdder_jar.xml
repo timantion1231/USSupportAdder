@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="SupportAdder:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SupportAdder_jar</output-path>
+    <root id="archive" name="SupportAdder.jar">
+      <element id="module-output" name="SupportAdder" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/24-ea+15/javafx-base-24-ea+15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/24-ea+15/javafx-controls-24-ea+15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/24-ea+15/javafx-fxml-24-ea+15-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/sourceforge/jexcelapi/jxl/2.6.12/jxl-2.6.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/24-ea+15/javafx-controls-24-ea+15-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/log4j/log4j/1.2.14/log4j-1.2.14.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/24-ea+15/javafx-graphics-24-ea+15-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/24-ea+15/javafx-graphics-24-ea+15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20240303/json-20240303.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/24-ea+15/javafx-fxml-24-ea+15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/24-ea+15/javafx-base-24-ea+15-win.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
