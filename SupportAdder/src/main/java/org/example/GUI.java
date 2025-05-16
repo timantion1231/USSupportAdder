@@ -22,8 +22,10 @@ public final class GUI extends Application {
     private TextArea textOutput;
     private Button buttonSubmit;
     private ComboBox<String> dropdownMenu;
+    private ComboBox<String> operationMenu;
     private SupportAdder supportAdder;
     private Button chkButton;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -38,7 +40,6 @@ public final class GUI extends Application {
 
         //значок загрузки
         Image loadingIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/loadingIcon.png")));
-        
 
 
         // Создание основного контейнера
@@ -59,7 +60,7 @@ public final class GUI extends Application {
         leftPanel.getChildren().add(menuLabel);
 
         dropdownMenu = new ComboBox<>();
-        dropdownMenu.getItems().addAll("Опора", "Опора ТМПК", "Опора Россети", "Опора Мособлэнерго", "Колодец");
+        dropdownMenu.getItems().addAll("Опора", "Опора ТМПК", "Опора Россети", "Опора Мособлэнерго", "Колодец", "Трубостойка ТМПК");
         dropdownMenu.setValue("Опора");
         leftPanel.getChildren().add(dropdownMenu);
 
@@ -70,15 +71,32 @@ public final class GUI extends Application {
         leftPanel.getChildren().add(chkButton);
 
         // Кнопка "Добавить опоры в UserSide"
-        buttonSubmit = new Button("Добавить объекты в UserSide");
+        buttonSubmit = new Button("Выполнить");
         buttonSubmit.setOnAction(e -> onSubmit());
         buttonSubmit.setDisable(true);
         leftPanel.getChildren().add(buttonSubmit);
+
+        /*
+        // Кнопка "Переименовать опоры в UserSide"
+        renameButton = new Button("Переименовать объекты в UserSide");
+        renameButton.setOnAction(e -> onRename());
+        renameButton.setDisable(true);
+        leftPanel.getChildren().add(renameButton);
+         */
+        //Выбор операции
+        Label operLabel = new Label("Выберите операцию:");
+        leftPanel.getChildren().add(operLabel);
+
+        operationMenu = new ComboBox<>();
+        operationMenu.getItems().addAll("Добавить объекты", "Переименовать объекты");
+        operationMenu.setValue("Добавить объекты");
+        leftPanel.getChildren().add(operationMenu);
 
         // Кнопка "Открыть файл"
         Button browseButton = new Button("Открыть файл");
         browseButton.setOnAction(e -> onBrowse());
         leftPanel.getChildren().add(browseButton);
+
 
         // Кнопка "Очистить текстовое поле"
         Button clearButton = new Button("Очистить текстовое поле");
@@ -93,6 +111,7 @@ public final class GUI extends Application {
         // Текстовое поле для вывода сообщений
         textOutput = new TextArea();
         textOutput.setEditable(false);
+        textOutput.setText("Координаты должны быть по шаблону 56 37");
         rightPanel.getChildren().add(textOutput);
 
         // Создание сцены и установка ее на сцену
@@ -103,7 +122,7 @@ public final class GUI extends Application {
 
     private void onSubmit() {
         try {
-            String text = addSupports();
+            String text = submit();
             textOutput.setText(text);
         } catch (Exception e) {
             textOutput.setText("Exception: " + e.getMessage());
@@ -124,7 +143,6 @@ public final class GUI extends Application {
                 String path = selectedFile.getParent() + File.separator;
                 String filename = selectedFile.getName();
                 supportAdder.loadXls(path, filename);
-
                 textOutput.setText("Выбранный файл: " + filename + "\n");
                 buttonSubmit.setDisable(false);
                 chkButton.setDisable(false);
@@ -139,6 +157,11 @@ public final class GUI extends Application {
     }
 
     private void chkSupports() {
+        String selectedItem = operationMenu.getValue();
+        switch (selectedItem) {
+            case "Добавить объекты" -> supportAdder.loadAddingPoints();
+            case "Переименовать объекты" -> supportAdder.loadRenamingPoints();
+        }
         StringBuilder messages = new StringBuilder();
         try {
             HashMap<String, Boolean> hm;
@@ -148,9 +171,9 @@ public final class GUI extends Application {
             while (iterator.hasNext()) {
                 elem = iterator.next();
                 if (elem.getValue()) {
-                    messages.append("Опора ").append(elem.getKey()).append(" cуществует.\n");
+                    messages.append("Объект ").append(elem.getKey()).append(" cуществует.\n");
                 } else {
-                    messages.append("Опоры ").append(elem.getKey()).append(" нет.\n");
+                    messages.append("Объекта ").append(elem.getKey()).append(" нет.\n");
                 }
             }
         } catch (Exception e) {
@@ -173,16 +196,33 @@ public final class GUI extends Application {
         }
     }
 
-    private String addSupports() {
+    private String addPoints() {
+
         String selectedItem = dropdownMenu.getValue();
-        int supportType = switch (selectedItem) {
+        int pointType = switch (selectedItem) {
             case "Опора ТМПК" -> 7;
             case "Опора Россети" -> 11;
             case "Опора Мособлэнерго" -> 10;
             case "Колодец" -> 3;
+            case "Трубостойка ТМПК" -> 8;
             default -> 2;
         };
 
-        return supportAdder.addSupports(supportType);
+        return supportAdder.addPoints(pointType);
     }
+
+    private String renamePoints() {
+        return supportAdder.renamePoints();
+    }
+
+    private String submit() {
+        String response = "";
+        String selectedItem = operationMenu.getValue();
+        switch (selectedItem) {
+            case "Добавить объекты" -> response = addPoints();
+            case "Переименовать объекты" -> response = renamePoints();
+        }
+        return response;
+    }
+
 }
