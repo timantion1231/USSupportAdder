@@ -1,8 +1,8 @@
 package org.example;
 
-public final class FullPoint implements Point{
-    private String lon;
-    private String lat;
+public final class FullPoint implements Point {
+    private final String lon;
+    private final String lat;
     private final String num;
     private boolean status; // True if exists
 
@@ -12,9 +12,6 @@ public final class FullPoint implements Point{
         this.num = num;
     }
 
-    public FullPoint(String num){
-        this.num = num;
-    }
 
     public String getLat() {
         return lat;

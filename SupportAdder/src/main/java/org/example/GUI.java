@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,7 +38,7 @@ public final class GUI extends Application {
         primaryStage.getIcons().add(icon);
 
         //значок загрузки
-        Image loadingIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/loadingIcon.png")));
+        //Image loadingIcon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/loadingIcon.png")));
 
 
         // Создание основного контейнера
@@ -76,13 +75,6 @@ public final class GUI extends Application {
         buttonSubmit.setDisable(true);
         leftPanel.getChildren().add(buttonSubmit);
 
-        /*
-        // Кнопка "Переименовать опоры в UserSide"
-        renameButton = new Button("Переименовать объекты в UserSide");
-        renameButton.setOnAction(e -> onRename());
-        renameButton.setDisable(true);
-        leftPanel.getChildren().add(renameButton);
-         */
         //Выбор операции
         Label operLabel = new Label("Выберите операцию:");
         leftPanel.getChildren().add(operLabel);
@@ -166,16 +158,17 @@ public final class GUI extends Application {
         try {
             HashMap<String, Boolean> hm;
             hm = supportAdder.chkSupportsExistence();
-            Map.Entry<String, Boolean> elem;
-            Iterator<Map.Entry<String, Boolean>> iterator = hm.entrySet().iterator();
-            while (iterator.hasNext()) {
-                elem = iterator.next();
-                if (elem.getValue()) {
-                    messages.append("Объект ").append(elem.getKey()).append(" cуществует.\n");
-                } else {
-                    messages.append("Объекта ").append(elem.getKey()).append(" нет.\n");
+            if (!hm.isEmpty()) {
+                Map.Entry<String, Boolean> elem;
+                for (Map.Entry<String, Boolean> stringBooleanEntry : hm.entrySet()) {
+                    elem = stringBooleanEntry;
+                    if (elem.getValue()) {
+                        messages.append("Объект ").append(elem.getKey()).append(" cуществует.\n");
+                    } else {
+                        messages.append("Объекта ").append(elem.getKey()).append(" нет.\n");
+                    }
                 }
-            }
+            } else messages.append("Ошибка чтения файла. Проверьте правильность введенных данных");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

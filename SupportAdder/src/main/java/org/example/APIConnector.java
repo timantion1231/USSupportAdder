@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class APIConnector {
-    private String url;
-    private String key;
+    private final String url;
+    private final String key;
 
     private final String cat = "node";
 

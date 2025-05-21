@@ -1,11 +1,11 @@
 package org.example;
 
-public class RenamingPoint  implements Point{
+public class RenamingPoint implements Point {
     private final String oldNum;
     private final String newNum;
     private boolean status;
 
-    public RenamingPoint(String oldNum, String newNum){
+    public RenamingPoint(String oldNum, String newNum) {
         this.oldNum = oldNum;
         this.newNum = newNum;
     }
@@ -14,11 +14,11 @@ public class RenamingPoint  implements Point{
         return newNum;
     }
 
-    public String getOldNum(){
+    public String getOldNum() {
         return oldNum;
     }
 
-    public String getNum(){
+    public String getNum() {
         return getOldNum();
     }
 

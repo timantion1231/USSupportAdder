@@ -9,8 +9,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class FileWorker {
-    private String docPath;
-    private String fileName;
+    private final String docPath;
+    private final String fileName;
     private Sheet sheet;
 
     public FileWorker(String docFile, String fileName) {
